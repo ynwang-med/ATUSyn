@@ -12,8 +12,8 @@ ATUSyn uses an NCSNpp-based diffusion generator. The network receives a noisy ul
 
 - Run commands from the **repository root**; paths in the commands below are relative to that directory.
 - Despite the `.yaml` extension, the release configuration uses **JSON-style syntax with optional full-line comments**, not general YAML syntax.
-- The repository contains the training, inference, and evaluation entry points for the ReMIND release. It **does not yet package a complete conversion pipeline from the original TCIA ReMIND data to the prepared MAT inputs** used by the scripts.
-- `requirements.txt` is a **candidate legacy Python 3.10 environment**, not an environment lockfile exported from the validated training server. Exact environment reproduction has not yet been confirmed.
+- The repository contains the training, inference, and evaluation entry points for the ReMIND release. 
+
 
 ## Environment setup
 
@@ -31,8 +31,6 @@ python -m pip install -r requirements.txt
 ```
 
 For GPU execution, make sure your PyTorch build is compatible with the installed NVIDIA driver and CUDA environment (see [PyTorch's installation guidance](https://pytorch.org/get-started/previous-versions/)). The inherited CUDA operator requires a compatible CUDA toolkit, C++ compiler, and Ninja, and may compile on first CUDA use. The required `segment_anything` source is included in the repository.
-
-**Note:** `requirements.txt` is a candidate legacy Python 3.10 dependency list rather than a lockfile exported from the validated training server. The commands above are a starting point, **not a fully validated reproduction environment**. If dependency resolution or CUDA compilation fails, align PyTorch and CUDA versions with the target machine; a tested environment specification is still needed.
 
 ## Data and pretrained resources
 
