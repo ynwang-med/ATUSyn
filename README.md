@@ -40,7 +40,7 @@ For GPU execution, make sure your PyTorch build is compatible with the installed
 
 Download the original ReMIND dataset from the [official TCIA ReMIND collection](https://www.cancerimagingarchive.net/collection/remind/). Follow the collection's access, use, and citation requirements. **No medical images are redistributed in this repository.**
 
-The intended patient-level train/validation/test split is documented at [`splits/ReMIND/split.csv`](splits/ReMIND/split.csv).  The original downloaded files cannot be passed directly to the training scripts: they must first be transformed into the prepared MAT structure shown below. The full raw-to-MAT preprocessing pipeline is not currently included, so end-to-end reproduction from the original TCIA download is not yet fully documented.
+The intended patient-level train/validation/test split is documented at [`splits/ReMIND/split.csv`](splits/ReMIND/split.csv).  The original downloaded files cannot be passed directly to the training scripts: they must first be transformed into the prepared MAT structure shown below. 
 
 Place the prepared files under:
 
@@ -68,9 +68,7 @@ The released **brain MRI-to-ultrasound** checkpoint is available here:
 | --- | --- | --- |
 | ReMIND (brain) | ATUSyn | [Google Drive — brain checkpoint](https://drive.google.com/file/d/13hc4vU_fLR_KkpcUTjf1xpFOcrxrSTR_/view?usp=drive_link) |
 
-Download the file and place it in `checkpoints/`. In the inference example below, `checkpoints/ATUSyn_brain.pth` refers to the **local filename you assign to the downloaded checkpoint**; it is not a claim about the filename on Google Drive. The command assumes that the shared file is a checkpoint compatible with `scripts/inference.py` and contains the expected **EMA** weights. 
-
-Only brain weights are released at present; weights for private clinical cohorts and the liver experiments are not provided.
+Download the file and place it in `checkpoints/`. 
 
 ### Additional model resources
 
@@ -86,7 +84,7 @@ For optional USFM evaluation, the corresponding code is expected at `third_party
 
 ## Training
 
-The released training configuration is `configs/remind.release.yaml`. The generator is initialized from scratch, while OpenCLIP and MedSAM use frozen pretrained weights. The supplied configuration specifies the staged loss schedule, batch sizes, learning-rate schedule, and stopping settings. The existing training documentation uses Adam with an initial learning rate of `1e-4`, EMA decay of `0.999`, and validation SSIM for checkpoint selection; verify the actual configuration before reporting exact reproduction settings.
+The released training configuration is `configs/remind.release.yaml`. The generator is initialized from scratch, while OpenCLIP and MedSAM use frozen pretrained weights. The supplied configuration specifies the staged loss schedule, batch sizes, learning-rate schedule, and stopping settings. The existing training documentation uses Adam with an initial learning rate of `1e-4`.
 
 Start training (Linux):
 
@@ -143,7 +141,7 @@ python scripts/evaluate.py \
 
 ## Acknowledgements and third-party code
 
-This implementation was developed by adapting and extending the open-source [SynDiff](https://github.com/icon-lab/SynDiff) project. We thank its authors for making the implementation available. SynDiff is distributed under the **MIT License**; retain its original copyright and permission notice for any SynDiff code included in this repository. Other reused components and bundled third-party source code may have separate license requirements; review and retain the applicable notices before redistributing them.
+This implementation was developed by adapting and extending the open-source [SynDiff](https://github.com/icon-lab/SynDiff) project. We thank its authors for making the implementation available. SynDiff is distributed under the **MIT License**; retain its original copyright and permission notice for any SynDiff code included in this repository. 
 
 If you use this implementation, please cite the ATUSyn paper and acknowledge the original SynDiff work where appropriate.
 
