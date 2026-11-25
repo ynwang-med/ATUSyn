@@ -4,8 +4,6 @@
 
 This repository contains the implementation of **“Beyond Pixel Alignment: Anatomy- and Text-Guided Diffusion for CT/MRI-to-Ultrasound Synthesis.”**
 
-> **Release scope.** This public release focuses on the **ReMIND brain MRI-to-ultrasound experiments**. The brain model checkpoint is shared below. Private clinical images, other cohort checkpoints, and separate ablation trainers are **not** included.
-
 ## Method
 
 ATUSyn uses an NCSNpp-based diffusion generator. The network receives a noisy ultrasound image, the source CT/MRI image, and an anatomical label map as three input channels. Anatomical-label-derived text prompts are encoded using a frozen OpenCLIP model. The implementation retains text/time conditioning and spatial cross-attention at the bottleneck. Frozen CLIP and MedSAM models provide feature-based supervision during training according to the configured loss schedule.
