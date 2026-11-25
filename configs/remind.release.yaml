@@ -1,0 +1,118 @@
+# Public counterpart of the single-GPU EMA/SSIM warmup-reset experiment.
+# All paths resolve from the ATUSyn repository root.
+{
+  "model": {
+    "image_size": 256,
+    "num_channels": 3,
+    "out_channels": 1,
+    "num_channels_dae": 64,
+    "ch_mult": [
+      1,
+      1,
+      2,
+      2,
+      4,
+      4
+    ],
+    "num_res_blocks": 2,
+    "attn_resolutions": [
+      16
+    ],
+    "dropout": 0,
+    "resamp_with_conv": true,
+    "conditional": true,
+    "fir": true,
+    "fir_kernel": [
+      1,
+      3,
+      3,
+      1
+    ],
+    "skip_rescale": true,
+    "resblock_type": "biggan",
+    "progressive": "output_skip",
+    "progressive_input": "input_skip",
+    "progressive_combine": "sum",
+    "embedding_type": "positional",
+    "fourier_scale": 16,
+    "not_use_tanh": false,
+    "centered": true,
+    "z_emb_dim": 256,
+    "t_emb_dim": 256,
+    "nz": 100,
+    "n_mlp": 3
+  },
+  "diffusion": {
+    "num_timesteps": 4,
+    "beta_min": 0.1,
+    "beta_max": 100,
+    "use_geometric": false
+  },
+  "text": {
+    "max_value": 63,
+    "min_pixels": 50,
+    "dropout": 0.3,
+    "clip_checkpoint": "checkpoints/open_clip_pytorch_model.bin"
+  },
+  "feature": {
+    "medsam_checkpoint": "checkpoints/medsam_vit_b.pth",
+    "clip_mse": 1.5,
+    "clip_dir": 0.15,
+    "medsam_l1": 5,
+    "medsam_dir": 0.1
+  },
+  "data": {
+    "root": "data/remind_mat",
+    "manifest": "data/remind_mat_manifest.csv",
+    "split": "splits/ReMIND/split.csv",
+    "backend": "mat",
+    "mat_cache": "ram",
+    "image_range": "uint8",
+    "label_encoding": "raw_ids",
+    "mat_variable": "image_data",
+    "mat_layout": "legacy"
+  },
+  "train": {
+    "save_stage1_checkpoints": false,
+    "stage1_epochs": 90,
+    "stage2_epochs": 50,
+    "batch_size_per_gpu": 3,
+    "batch_size_per_gpu_stage1": 24,
+    "batch_size_per_gpu_stage2": 3,
+    "workers": 0,
+    "seed": 1024,
+    "lr": 0.0001,
+    "betas": [
+      0.5,
+      0.9
+    ],
+    "eta_min": 0.00001,
+    "stage1_diff_weight": 1,
+    "stage2_diff_weight": 50,
+    "reset_optimizer_stage2": true,
+    "reset_scheduler_stage2": true,
+    "cosine_tmax_stage1": 200,
+    "cosine_tmax_stage2": 200,
+    "checkpoint_every": 1,
+    "ema": {
+      "enabled": true,
+      "decay": 0.999
+    },
+    "validation": {
+      "every": 1,
+      "seed": 2026,
+      "monitor": "ssim",
+      "mode": "max",
+      "weights": "ema"
+    },
+    "early_stopping": {
+      "enabled": true,
+      "monitor": "ssim",
+      "patience": 10,
+      "stage1_warmup_epochs": 20,
+      "warmup_reference": "end"
+    },
+    "stagewise_early_stopping": true
+  }
+}
+
