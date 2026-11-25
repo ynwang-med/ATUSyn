@@ -107,7 +107,7 @@ The original release instructions select **EMA** weights for inference. The CLI 
 
 ```bash
 python scripts/inference.py --config configs/remind.release.yaml \
-  --checkpoint checkpoints/ATUSyn_brain.pth --weights ema \
+  --checkpoint checkpoints/ATUSyn_brain.pth --weights auto \
   --device cuda:0 --split test --seed 1024 \
   --output runs/remind_release/test
 ```
