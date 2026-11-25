@@ -40,7 +40,7 @@ For GPU execution, make sure your PyTorch build is compatible with the installed
 
 Download the original ReMIND dataset from the [official TCIA ReMIND collection](https://www.cancerimagingarchive.net/collection/remind/). Follow the collection's access, use, and citation requirements. **No medical images are redistributed in this repository.**
 
-The intended patient-level train/validation/test split is documented at [`splits/ReMIND/split.csv`](splits/ReMIND/split.csv). Check that this file is present in the published repository before relying on the link. The original downloaded files cannot be passed directly to the training scripts: they must first be transformed into the prepared MAT structure shown below. The full raw-to-MAT preprocessing pipeline is not currently included, so end-to-end reproduction from the original TCIA download is not yet fully documented.
+The intended patient-level train/validation/test split is documented at [`splits/ReMIND/split.csv`](splits/ReMIND/split.csv).  The original downloaded files cannot be passed directly to the training scripts: they must first be transformed into the prepared MAT structure shown below. The full raw-to-MAT preprocessing pipeline is not currently included, so end-to-end reproduction from the original TCIA download is not yet fully documented.
 
 Place the prepared files under:
 
@@ -68,7 +68,7 @@ The released **brain MRI-to-ultrasound** checkpoint is available here:
 | --- | --- | --- |
 | ReMIND (brain) | ATUSyn | [Google Drive — brain checkpoint](https://drive.google.com/file/d/13hc4vU_fLR_KkpcUTjf1xpFOcrxrSTR_/view?usp=drive_link) |
 
-Download the file and place it in `checkpoints/`. In the inference example below, `checkpoints/ATUSyn_brain.pth` refers to the **local filename you assign to the downloaded checkpoint**; it is not a claim about the filename on Google Drive. The command assumes that the shared file is a checkpoint compatible with `scripts/inference.py` and contains the expected **EMA** weights. **Please verify the checkpoint format and run the command once before treating this as a tested reproduction instruction.**
+Download the file and place it in `checkpoints/`. In the inference example below, `checkpoints/ATUSyn_brain.pth` refers to the **local filename you assign to the downloaded checkpoint**; it is not a claim about the filename on Google Drive. The command assumes that the shared file is a checkpoint compatible with `scripts/inference.py` and contains the expected **EMA** weights. 
 
 Only brain weights are released at present; weights for private clinical cohorts and the liver experiments are not provided.
 
@@ -116,7 +116,7 @@ python scripts/inference.py --config configs/remind.release.yaml \
   --output runs/remind_release/test
 ```
 
-**Checkpoint compatibility check:** This command assumes the downloadable checkpoint uses the same saved structure as the release training checkpoints. If it is instead a standalone state dictionary, the loading code or packaging instructions will need to be adjusted. The shared file has not been inspected as part of this README edit.
+**Checkpoint compatibility check:** This command assumes the downloadable checkpoint uses the same saved structure as the release training checkpoints. If it is instead a standalone state dictionary, the loading code or packaging instructions will need to be adjusted. 
 
 ## Evaluation
 
